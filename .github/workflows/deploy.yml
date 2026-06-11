@@ -1,0 +1,36 @@
+name: Deploy Cloud Resume
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload to Azure Storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --destination '$web' \
+              --source . \
+              --pattern '*.html' \
+              --overwrite true
+
+      - name: Purge CDN (if applicable)
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            echo "Deployment complete"
