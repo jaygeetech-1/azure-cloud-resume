@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Upload to Azure Storage
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             az storage blob upload-batch \
@@ -29,8 +29,5 @@ jobs:
               --pattern '*.html' \
               --overwrite true
 
-      - name: Purge CDN (if applicable)
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            echo "Deployment complete"
+      - name: Deployment complete
+        run: echo "Cloud resume deployed successfully"
