@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jonnathan Gainyard | Cloud Administrator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #0a0a0a;
+      --dark:       #111111;
+      --panel:      #1a1a1a;
+      --border:     #2a2a2a;
+      --red:        #cc0000;
+      --red-glow:   #ff1a1a;
+      --red-dim:    #8b0000;
+      --off-white:  #f5f5f5;
+      --muted:      #999999;
+      --light-bg:   #f9f9f9;
+      --sidebar-w:  220px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: #222;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────────── */
+    #sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--black);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 1.5rem;
+      z-index: 100;
+      border-right: 1px solid var(--border);
+    }
+
+    .sidebar-initials {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.8rem;
+      color: var(--off-white);
+      letter-spacing: 4px;
+      margin-bottom: 2.5rem;
+      line-height: 1;
+    }
+
+    .sidebar-initials span {
+      color: var(--red);
+    }
+
+    .hero-avatar-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--red);
+      box-shadow: 0 0 24px rgba(204,0,0,0.3);
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+
+    nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: var(--red);
+      transition: height 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--off-white);
+    }
+
+    nav a:hover::before,
+    nav a.active::before {
+      height: 60%;
+    }
+
+    .sidebar-counter {
+      margin-top: auto;
+      padding-top: 2rem;
+    }
+
+    .counter-label {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .counter-label::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 6px var(--red-glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 4px var(--red-glow); }
+      50%       { box-shadow: 0 0 12px var(--red-glow), 0 0 20px var(--red-dim); }
+    }
+
+    .counter-value {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--red);
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+
+    /* ─── MAIN CONTENT ────────────────────────────── */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+    }
+
+    /* ─── HERO ────────────────────────────────────── */
+    #home {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(204,0,0,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--panel);
+      border: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      color: var(--red);
+      letter-spacing: 3px;
+      box-shadow: 0 0 20px rgba(204,0,0,0.25);
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--off-white);
+      letter-spacing: 6px;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .hero-title {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .hero-title .typed {
+      color: var(--red);
+      font-weight: 500;
+      border-right: 2px solid var(--red);
+      padding-right: 2px;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: var(--red); }
+      50%       { border-color: transparent; }
+    }
+
+    .hero-links {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-links a {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .hero-links a:hover {
+      color: var(--red);
+      border-color: var(--red);
+    }
+
+    /* ─── SECTIONS ────────────────────────────────── */
+    .section {
+      padding: 5rem 4rem;
+      border-bottom: 1px solid #e5e5e5;
+      background: var(--light-bg);
+    }
+
+    .section:nth-child(even) {
+      background: #fff;
+    }
+
+    .section-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.4rem;
+      letter-spacing: 3px;
+      color: var(--black);
+      margin-bottom: 2.5rem;
+      line-height: 1;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-left: 3px solid var(--red);
+    }
+
+    .about-card-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .about-card h3 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      color: var(--off-white);
+      margin-bottom: 1rem;
+    }
+
+    .about-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-card .website {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-card .website a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--off-white);
+      background: var(--red);
+      padding: 0.6rem 1.4rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background: var(--red-glow);
+    }
+
+    .about-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+
+    .info-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .info-value {
+      font-size: 0.9rem;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* ─── EXPERIENCE ──────────────────────────────── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      padding: 0 0 2.5rem 2.2rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0.5rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 6px var(--red-dim);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-role {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111;
+    }
+
+    .timeline-date {
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      color: var(--red);
+      font-family: 'Roboto Mono', monospace;
+      white-space: nowrap;
+    }
+
+    .timeline-company {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timeline-item ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .timeline-item ul li {
+      font-size: 0.85rem;
+      color: #444;
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .timeline-item ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-size: 0.7rem;
+    }
+
+    /* ─── SKILLS ──────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .skill-chip {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-bottom: 2px solid var(--red);
+      padding: 0.75rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #222;
+      letter-spacing: 0.5px;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .skill-chip:hover {
+      border-bottom-color: var(--red-glow);
+      box-shadow: 0 2px 12px rgba(204,0,0,0.1);
+    }
+
+    /* ─── CERTIFICATIONS ──────────────────────────── */
+    .cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-left: 3px solid var(--red);
+    }
+
+    .cert-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #111;
+      margin-bottom: 0.2rem;
+    }
+
+    .cert-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    /* ─── PROJECTS ────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      padding: 1.8rem;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .project-tag {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #111;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tech-badge {
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--light-bg);
+      border: 1px solid #ddd;
+      padding: 0.25rem 0.6rem;
+      color: #555;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .footer-made {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-made span {
+      color: var(--red);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--red); }
+
+    /* ─── SCROLLBAR ───────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ─── BACK TO TOP ─────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 29px;
+      height: 29px;
+      background: var(--black);
+      color: var(--red);
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 200;
+      box-shadow: 0 0 0 1px var(--black), 0 0 8px rgba(204,0,0,0.4);
+      image-rendering: pixelated;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #back-to-top:hover {
+      background: var(--red);
+      color: var(--off-white);
+      box-shadow: 0 0 0 1px var(--black), 0 0 12px rgba(255,26,26,0.6);
+    }
+
+    /* 8-bit pixel arrow via box-shadow grid */
+    #back-to-top .pixel-arrow {
+      position: relative;
+      width: 2px;
+      height: 2px;
+      background: transparent;
+      box-shadow:
+        /* Row 1 - tip */
+        0px  -6px  0 0 currentColor,
+        /* Row 2 */
+        -2px  -4px 0 0 currentColor,
+        0px   -4px 0 0 currentColor,
+        2px   -4px 0 0 currentColor,
+        /* Row 3 */
+        -4px  -2px 0 0 currentColor,
+        -2px  -2px 0 0 currentColor,
+        0px   -2px 0 0 currentColor,
+        2px   -2px 0 0 currentColor,
+        4px   -2px 0 0 currentColor,
+        /* stem */
+        0px    0px 0 0 currentColor,
+        0px    2px 0 0 currentColor,
+        0px    4px 0 0 currentColor,
+        0px    6px 0 0 currentColor;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .section { padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── SIDEBAR ─────────────────────────────────── -->
+  <aside id="sidebar">
+<div class="sidebar-initials">J<span>G</span></div>
+    <nav>
+      <a href="#home"          class="active">Home</a>
+      <a href="#about"                       >About</a>
+      <a href="#experience"                  >Experience</a>
+      <a href="#skills"                      >Skills</a>
+      <a href="#certifications"              >Certifications</a>
+      <a href="#projects"                    >Projects</a>
+    </nav>
+    <div class="sidebar-counter">
+      <div class="counter-label">Views</div>
+      <div class="counter-value" id="visit-count">—</div>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN ─────────────────────────────────────── -->
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="home">
+      <img class="hero-avatar-photo" src="data:image/png;base64,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" alt="Jonnathan Gainyard" />
+      <h1 class="hero-name">Jonnathan Gainyard</h1>
+      <p class="hero-title">I'm a <span class="typed" id="typed-text"></span></p>
+      <div class="hero-links">
+        <a href="mailto:jaygeetech1@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/jonnathan-gainyard" target="_blank">LinkedIn</a>
+        <a href="#projects">Projects</a>
+        <a href="https://jgcloudresume.z19.web.core.windows.net/J_Gainyard_Resume_Jun_2026.pdf" target="_blank" id="download-cv-hero">Download CV</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-eyebrow">Information</div>
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-label">About Me</div>
+          <h3>Cloud-Focused IT Professional</h3>
+          <p>Dynamic IT professional with 5+ years of experience in Level 1–2 technical support, hardware/software troubleshooting, and client management. Now transitioning into cloud administration with hands-on Azure and AWS experience.</p>
+          <p>Certified in Microsoft Azure Fundamentals (AZ-900), proficient in Windows OS, Active Directory, VPN, and leading ticketing systems. Driven to build scalable, secure cloud infrastructure.</p>
+          <div class="website">Email: <a href="mailto:jaygeetech1@gmail.com">jaygeetech1@gmail.com</a></div>
+          <a href="https://jgcloudresume.z19.web.core.windows.net/J_Gainyard_Resume_Jun_2026.pdf" target="_blank" class="btn">Download CV</a>
+        </div>
+        <div class="about-info">
+          <div class="info-row">
+            <span class="info-label">Current Role</span>
+            <span class="info-value">Customer Support Representative → Cloud Administrator (in transition)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Experience</span>
+            <span class="info-value">5+ years in IT Support & Technical Troubleshooting</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Cloud Platforms</span>
+            <span class="info-value">Microsoft Azure · Amazon Web Services (AWS)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Certifications</span>
+            <span class="info-value">Microsoft Azure Fundamentals AZ-900</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Location</span>
+            <span class="info-value">Houston, TX (Remote)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">LinkedIn</span>
+            <span class="info-value"><a href="https://linkedin.com/in/jonnathan-gainyard" target="_blank" style="color:var(--red); text-decoration:none;">linkedin.com/in/jonnathan-gainyard</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="section-eyebrow">Career History</div>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">Customer Support Representative <span style="font-weight:400;font-size:0.85em;">(Remote)</span></span>
+            <span class="timeline-date">Jan 2026 – Present</span>
+          </div>
+          <div class="timeline-company">Tactacam</div>
+          <ul>
+            <li>Deliver top-tier technical support to customers, resolving product and software issues efficiently across multiple channels.</li>
+            <li>Engage with customers via phone and other support channels, maintaining a professional and empathetic tone throughout each interaction.</li>
+            <li>Diagnose and troubleshoot technical problems, identifying root causes and walking customers through clear, step-by-step solutions.</li>
+            <li>Consistently ensure high customer satisfaction by following up on open cases and advocating for timely resolutions.</li>
+            <li>Collaborate cross-functionally with internal teams to escalate and resolve complex issues requiring additional expertise.</li>
+            <li>Maintain detailed, accurate records of all customer interactions and resolutions within the ticketing system.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">Overnight Stocking Associate</span>
+            <span class="timeline-date">May 2025 – Present</span>
+          </div>
+          <div class="timeline-company">Walmart</div>
+          <ul>
+            <li>Unload General Merchandise and grocery delivery trucks, break down pallets, and sort cases by department and aisle to prepare the floor for restocking.</li>
+            <li>Stock shelves according to planograms, rotate products to bring older inventory forward, and maintain full, clean facings throughout assigned sections.</li>
+            <li>Organize and bin overstock merchandise in backroom storage using Walmart inventory management devices, keeping accurate stock counts.</li>
+            <li>Perform zone recovery before store opening — pulling products to shelf fronts, removing damaged or expired goods, and clearing packaging from aisles.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">Service Desk Analyst I</span>
+            <span class="timeline-date">Nov 2024 – Jan 2026</span>
+          </div>
+          <div class="timeline-company">UnityBPO</div>
+          <ul>
+            <li>Resolved technical software and hardware issues including VPN connectivity, Active Directory management, and troubleshooting for laptops, desktops, printers, tablets, and VOIP telephony.</li>
+            <li>Assisted multiple clients across various ticketing systems, ensuring timely resolution of issues.</li>
+            <li>Escalated unresolved tickets to appropriate teams while adhering to ITIL framework guidelines.</li>
+            <li>Provided End-User Electronic Health Record (EHR) usability support to medical staff, improving system efficiency.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">NGH Support Specialist (Client Support Helpline)</span>
+            <span class="timeline-date">May 2023 – Oct 2024</span>
+          </div>
+          <div class="timeline-company">NielsenIQ</div>
+          <ul>
+            <li>Utilized Microsoft Dynamics CRM to provide email-based support to global customers, resolving account lockouts, reporting errors, and access requests.</li>
+            <li>Managed case queues and collaborated with managers via Microsoft Teams to address ad hoc requests.</li>
+            <li>Resolved software registration and access issues using the ServiceNow ticketing system.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">IT Support Technician</span>
+            <span class="timeline-date">Oct 2022 – Mar 2023</span>
+          </div>
+          <div class="timeline-company">HonorBuilt</div>
+          <ul>
+            <li>Delivered Level 1 technical support for Point of Sale (POS) setups via phone, email, and remote tools.</li>
+            <li>Diagnosed and resolved network issues related to DHCP, DNS, and Windows OS.</li>
+            <li>Optimized performance of file servers, workstations, and peripheral devices.</li>
+            <li>Documented all interactions and resolutions in the ConnectWise ticketing system.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">Customer Retention Specialist</span>
+            <span class="timeline-date">Jan 2022 – Aug 2022</span>
+          </div>
+          <div class="timeline-company">Sutherland</div>
+          <ul>
+            <li>Addressed customer inquiries and complaints via phone and email, achieving a high satisfaction rate.</li>
+            <li>Processed purchases, upgrades, and service requests using Zendesk and Amdocs CRM systems.</li>
+            <li>Built customer loyalty through empathetic communication and proactive issue resolution.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">IT Support Technician</span>
+            <span class="timeline-date">Sep 2018 – Mar 2020</span>
+          </div>
+          <div class="timeline-company">ASAP / NetSource MSP</div>
+          <ul>
+            <li>Assisted staff with desktop and laptop setups, hardware upgrades, and PC troubleshooting using the ServiceNow ticketing system.</li>
+            <li>Collaborated with vendors to enhance operations and asset management.</li>
+            <li>Maintained records of IT equipment and service tags for asset tracking.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-role">Technical Support Specialist</span>
+            <span class="timeline-date">Jun 2014 – Jun 2016</span>
+          </div>
+          <div class="timeline-company">FingerCheck / FingerTecUSA</div>
+          <ul>
+            <li>Provided first-line technical support for time-management systems in Windows and cloud environments.</li>
+            <li>Assisted clients with connecting biometric time clock terminals via remote support software.</li>
+            <li>Trained employees on time-management procedures and enrolled them on biometric time clock terminals.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="section-eyebrow">Ability</div>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-chip">Windows OS</div>
+        <div class="skill-chip">Active Directory</div>
+        <div class="skill-chip">Microsoft Azure</div>
+        <div class="skill-chip">AWS (S3 / IAM)</div>
+        <div class="skill-chip">Azure Functions</div>
+        <div class="skill-chip">Cosmos DB</div>
+        <div class="skill-chip">VPN</div>
+        <div class="skill-chip">DHCP / DNS</div>
+        <div class="skill-chip">ServiceNow</div>
+        <div class="skill-chip">ConnectWise</div>
+        <div class="skill-chip">SaaS</div>
+        <div class="skill-chip">ITIL Framework</div>
+        <div class="skill-chip">MS Dynamics CRM</div>
+        <div class="skill-chip">GitHub Actions</div>
+        <div class="skill-chip">Infrastructure as Code</div>
+        <div class="skill-chip">Zendesk</div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <div class="section-eyebrow">What I Have Achieved</div>
+      <h2 class="section-title">Certifications</h2>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <div class="cert-name">Microsoft Certified: Azure Fundamentals (AZ-900)</div>
+            <div class="cert-meta">Credential ID: 4F3AE67200E07FB5 &nbsp;·&nbsp; Dec 2024</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="section-eyebrow">Portfolio</div>
+      <h2 class="section-title">Cloud Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-tag" style="color: #00aa44;">Azure · Completed · Jan – Jun 2026</div>
+          <div class="project-title">Azure Cloud Resume Challenge</div>
+          <p class="project-desc">Started in January 2026 with a goal to learn cloud infrastructure from the ground up. Navigated real-world constraints — two jobs, family, and limited study time — and completed the full challenge in June 2026. Built a full-stack serverless resume on Azure with a live visitor counter, automated CI/CD, infrastructure-as-code, and a custom domain.</p>
+          <div class="tech-stack">
+            <span class="tech-badge">Azure Static Web Apps</span>
+            <span class="tech-badge">Azure Functions</span>
+            <span class="tech-badge">Cosmos DB</span>
+            <span class="tech-badge">GitHub Actions</span>
+            <span class="tech-badge">Bicep / ARM</span>
+            <span class="tech-badge">Custom Domain</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tag">AWS · Jul 2025</div>
+          <div class="project-title">AWS S3 Secure Access Configuration</div>
+          <p class="project-desc">Configured an Amazon S3 bucket with least-privilege bucket policies for a small business client — enabling public read-only access via direct URLs while blocking unauthorized bucket listing and external account access.</p>
+          <div class="tech-stack">
+            <span class="tech-badge">AWS S3</span>
+            <span class="tech-badge">IAM</span>
+            <span class="tech-badge">Bucket Policies</span>
+            <span class="tech-badge">JSON</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tag">AWS · Sep 2016 – Jul 2018</div>
+          <div class="project-title">Secure Digital Product Delivery System</div>
+          <p class="project-desc">Designed and deployed a secure digital product distribution system using AWS S3 and WordPress/WooCommerce. Contributed to a sales funnel generating over $500,000 in revenue. Applied IAM and least-privilege principles throughout.</p>
+          <div class="tech-stack">
+            <span class="tech-badge">AWS S3</span>
+            <span class="tech-badge">IAM</span>
+            <span class="tech-badge">WordPress</span>
+            <span class="tech-badge">WooCommerce</span>
+            <span class="tech-badge">Cloud Security</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-copy">© 2025 Jonnathan Gainyard. All rights reserved.</div>
+      <div class="footer-made">Made with <span>♥</span><br>
+        <small id="footer-counter" style="font-size:0.65rem; letter-spacing:1px; opacity:0.6;">Loading visitor count...</small>
+      </div>
+      <div class="footer-links">
+        <a href="https://linkedin.com/in/jonnathan-gainyard" target="_blank">LinkedIn</a>
+        <a href="https://github.com/" target="_blank">GitHub</a>
+      </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button id="back-to-top" aria-label="Back to top"><span class="pixel-arrow"></span></button>
+
+  </main>
+
+  <script>
+    // ── Typing animation ───────────────────────────────────────────
+    const phrases = [
+      'Cloud Administrator',
+      'IT Professional',
+      'Azure Enthusiast',
+      'Problem Solver'
+    ];
+    let pIdx = 0, cIdx = 0, deleting = false;
+    const typedEl = document.getElementById('typed-text');
+
+    function type() {
+      const current = phrases[pIdx];
+      if (!deleting) {
+        typedEl.textContent = current.slice(0, ++cIdx);
+        if (cIdx === current.length) {
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        typedEl.textContent = current.slice(0, --cIdx);
+        if (cIdx === 0) {
+          deleting = false;
+          pIdx = (pIdx + 1) % phrases.length;
+        }
+      }
+      setTimeout(type, deleting ? 55 : 90);
+    }
+    type();
+
+    // ── Active nav on scroll ───────────────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // ── Back to top ───────────────────────────────────────────────
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Visitor counter (placeholder — replace URL with Azure Function endpoint) ──
+    async function loadVisitorCount() {
+      try {
+        // TODO: Replace this URL with your Azure Function endpoint
+        const FUNCTION_URL = 'https://YOUR_FUNCTION_APP.azurewebsites.net/api/VisitorCounter';
+        const res = await fetch(FUNCTION_URL);
+        const data = await res.json();
+        const count = data.count ?? data.visitorCount ?? '—';
+        document.getElementById('visit-count').textContent = count.toLocaleString();
+        document.getElementById('footer-counter').textContent = `${count.toLocaleString()} visitors`;
+      } catch {
+        // Counter not yet connected — silently show placeholder
+        document.getElementById('visit-count').textContent = '—';
+        document.getElementById('footer-counter').textContent = 'Counter coming soon';
+      }
+    }
+    loadVisitorCount();
+  </script>
+</body>
+</html>
