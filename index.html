@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1085,7 +1086,7 @@
     async function loadVisitorCount() {
       try {
         // TODO: Replace this URL with your Azure Function endpoint
-        const FUNCTION_URL = 'https://YOUR_FUNCTION_APP.azurewebsites.net/api/VisitorCounter';
+        const FUNCTION_URL = 'https://jg-resume-function.azurewebsites.net/api/VisitorCounter';
         const res = await fetch(FUNCTION_URL);
         const data = await res.json();
         const count = data.count ?? data.visitorCount ?? '—';
