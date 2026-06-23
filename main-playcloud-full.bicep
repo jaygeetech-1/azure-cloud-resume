@@ -79,6 +79,7 @@ resource appPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
 // ── Cosmos DB Account ─────────────────────────────────────────────
 // Explicitly configured to match PlayCloud sandbox spec:
 // Standard offer, provisioned throughput, no serverless capability
+// Jun 2026: capacityMode only works on 2026-04-01-preview — verify before bumping this API version
 resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2026-04-01-preview' = {
   name: cosmosAccountName
   location: location
